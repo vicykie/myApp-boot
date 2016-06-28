@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import org.vicykie.myapp.dao.UserDAO;
+import org.vicykie.myapp.entities.authority.RoleInfo;
 import org.vicykie.myapp.entities.authority.UserInfo;
 
 import java.util.List;
@@ -54,5 +55,11 @@ public class MongoUserDAOImpl implements UserDAO {
     public List<UserInfo> getAllUsers() {
 
         return template.findAll(UserInfo.class);
+    }
+
+    @Override
+    public int addRole(RoleInfo role) {
+        template.insert(role);
+        return 0;
     }
 }

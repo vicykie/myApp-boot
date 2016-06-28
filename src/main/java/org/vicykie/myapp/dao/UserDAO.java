@@ -1,6 +1,7 @@
 package org.vicykie.myapp.dao;
 
 
+import org.vicykie.myapp.entities.authority.RoleInfo;
 import org.vicykie.myapp.entities.authority.UserInfo;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface UserDAO {
     UserInfo getUserByUsername(String username);
 
     List<UserInfo> getAllUsers();
+
+    int addRole(RoleInfo role);
 }

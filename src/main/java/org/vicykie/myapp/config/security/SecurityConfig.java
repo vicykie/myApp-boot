@@ -66,9 +66,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // resources matcher auth
         http
                 .authorizeRequests()
-                .antMatchers("/index.jsp").permitAll()
+                .antMatchers("/").permitAll()
                 .antMatchers("/static/**").permitAll()
                 .antMatchers("/pub/**").permitAll()
+                .antMatchers("/user/**").permitAll()
+                .antMatchers("/role/**").permitAll()
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .anyRequest().authenticated();
