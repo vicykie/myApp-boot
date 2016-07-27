@@ -1,10 +1,10 @@
 package org.vicykie.myapp.entities.authority;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.vicykie.myapp.enums.Status;
+import org.vicykie.myapp.enums.EntityStatus;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,16 +15,17 @@ import java.util.Set;
  * Created by vicykie on 2016/5/10.
  */
 @Document(collection = "role")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RoleInfo implements Serializable {
     @Id
     @Field(value = "id")
     private String id;
     private String roleName;
     private String description;
-    private Status status = Status.ENABLE;
+    private EntityStatus entityStatus = EntityStatus.ENABLE;
     @Field(value = "create_date")
     private Date createDate = new Date();
-    @Transient
+
     private Set<AuthorityInfo> authorities;
 
     public Set<AuthorityInfo> getAuthorities() {
@@ -59,12 +60,12 @@ public class RoleInfo implements Serializable {
         this.description = description;
     }
 
-    public Status getStatus() {
-        return status;
+    public EntityStatus getEntityStatus() {
+        return entityStatus;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setEntityStatus(EntityStatus entityStatus) {
+        this.entityStatus = entityStatus;
     }
 
     public Date getCreateDate() {

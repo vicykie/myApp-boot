@@ -11,30 +11,6 @@ public class ResponseVO<T> {
     private String rspMsg;
     private T data;
 
-    public ResponseStatus getCode() {
-        return code;
-    }
-
-    public void setCode(ResponseStatus code) {
-        this.code = code;
-    }
-
-    public String getRspMsg() {
-        return rspMsg;
-    }
-
-    public void setRspMsg(String rspMsg) {
-        this.rspMsg = rspMsg;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
     public ResponseVO(ResponseStatus code, String rspMsg, T data) {
         this.code = code;
         this.rspMsg = rspMsg;
@@ -44,11 +20,6 @@ public class ResponseVO<T> {
     public ResponseVO(ResponseStatus code, String rspMsg) {
         this.code = code;
         this.rspMsg = rspMsg;
-    }
-
-    public ResponseVO(ResponseStatus code, T data) {
-        this.code = code;
-        this.data = data;
     }
 
     public static <T> ResponseVO<T> getDataSuccess(T data, String rspMsg) {
@@ -85,6 +56,35 @@ public class ResponseVO<T> {
 
     public static <T> ResponseVO<T> logoutSuccess(T successUrl) {
         return new ResponseVO(ResponseStatus.SUC_LOGOUT, "退出成功", successUrl);
+    }
+
+    public static <T> ResponseVO<T> accessDenied() {
+        return new ResponseVO(ResponseStatus.ACCESS_DENIED, "访问拒绝");
+    }
+
+
+    public ResponseStatus getCode() {
+        return code;
+    }
+
+    public void setCode(ResponseStatus code) {
+        this.code = code;
+    }
+
+    public String getRspMsg() {
+        return rspMsg;
+    }
+
+    public void setRspMsg(String rspMsg) {
+        this.rspMsg = rspMsg;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 
 

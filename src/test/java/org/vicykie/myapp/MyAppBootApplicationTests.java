@@ -11,8 +11,10 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @WebAppConfiguration
 public class MyAppBootApplicationTests {
 
-	@Test
-	public void contextLoads() {
-	}
+    @Test
+    public void contextLoads() {
+
+
+    }
 
 }

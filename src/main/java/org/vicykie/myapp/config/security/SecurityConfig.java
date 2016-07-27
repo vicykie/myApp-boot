@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.authentication.dao.ReflectionSaltSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -24,7 +25,6 @@ import org.vicykie.myapp.config.auth.filter.TokenAuthenticationProcessingFilter;
 import org.vicykie.myapp.config.auth.handler.LoginFailureHandler;
 import org.vicykie.myapp.config.auth.handler.LoginSuccessHandler;
 import org.vicykie.myapp.util.AppPasswordEncoder;
-import org.vicykie.myapp.util.UserAuthTokenHandler;
 
 import javax.annotation.PostConstruct;
 
@@ -33,6 +33,7 @@ import javax.annotation.PostConstruct;
  */
 @EnableWebSecurity
 @Configuration
+@EnableGlobalMethodSecurity(securedEnabled = true) // to allow secure annotation on method to control access
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static Logger logger = Logger.getLogger(SecurityConfig.class);
 
@@ -48,8 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UnAuthenticationEntryPoint unAuthenticationEntryPoint;
     @Autowired
     private TokenAuthenticationService tokenAuthenticationService;
-    @Autowired
-    private UserAuthTokenHandler tokenHandler;
+
 
     @PostConstruct
     public void initSecurity() {
@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // unAuthentication
-        http.exceptionHandling().authenticationEntryPoint(unAuthenticationEntryPoint);
+        http.exceptionHandling().accessDeniedPage("/403").authenticationEntryPoint(unAuthenticationEntryPoint);
         // session stateless
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         // resources matcher auth
@@ -68,9 +68,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/static/**").permitAll()
-                .antMatchers("/pub/**").permitAll()
+                .antMatchers("/auth/**").permitAll()
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/role/**").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .anyRequest().authenticated();
@@ -78,8 +79,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().httpBasic();
         // custom JSON based authentication by POST of
         // {"username":"<name>","password":"<password>"} which sets the token header upon authentication
-        TokenAuthenticationProcessingFilter filter = new TokenAuthenticationProcessingFilter("/auth/login", tokenHandler
-                , this.authenticationManagerBean());
+        TokenAuthenticationProcessingFilter filter = new TokenAuthenticationProcessingFilter("/auth/login"
+                , this.authenticationManagerBean(), tokenAuthenticationService);
         filter.setAuthenticationFailureHandler(loginFailureHandler);
         filter.setAuthenticationSuccessHandler(loginSuccessHandler);
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);

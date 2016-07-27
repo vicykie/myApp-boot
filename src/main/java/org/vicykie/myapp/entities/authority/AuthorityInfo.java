@@ -1,25 +1,26 @@
 package org.vicykie.myapp.entities.authority;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
-import org.vicykie.myapp.enums.Status;
-
-import java.io.Serializable;
+import org.vicykie.myapp.enums.EntityStatus;
 
 /**
  * Created by vicykie on 2016/5/10.
  */
 @Document(collection = "role_authority")
-public class AuthorityInfo implements Serializable, GrantedAuthority {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class AuthorityInfo implements GrantedAuthority {
 
     @Id
     private String id;
     private String authName;
     private String description;
     private String resourcePaths;
-    private Status status = Status.ENABLE;
-    private RoleInfo roleInfo;
+    private EntityStatus status = EntityStatus.ENABLE;
+
 
     public String getId() {
         return id;
@@ -53,22 +54,15 @@ public class AuthorityInfo implements Serializable, GrantedAuthority {
         this.resourcePaths = resourcePaths;
     }
 
-    public Status getStatus() {
+    public EntityStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(EntityStatus status) {
         this.status = status;
     }
 
-    public RoleInfo getRoleInfo() {
-        return roleInfo;
-    }
-
-    public void setRoleInfo(RoleInfo roleInfo) {
-        this.roleInfo = roleInfo;
-    }
-
+    @JsonIgnore
     @Override
     public String getAuthority() {
         return authName;

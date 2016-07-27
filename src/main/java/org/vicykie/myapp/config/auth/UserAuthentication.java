@@ -2,9 +2,12 @@ package org.vicykie.myapp.config.auth;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.vicykie.myapp.entities.authority.UserInfo;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by vicykie on 2016/6/14.
@@ -19,7 +22,13 @@ public class UserAuthentication implements Authentication {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getAuthorities();
+        List<GrantedAuthority> authorities = null;
+        if (user.getRoleInfo() != null) {
+            authorities = new ArrayList<>();
+            GrantedAuthority authority = new SimpleGrantedAuthority(user.getRoleInfo().getRoleName());
+            authorities.add(authority);
+        }
+        return authorities;
     }
 
     @Override

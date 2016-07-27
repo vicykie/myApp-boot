@@ -19,3 +19,4 @@ hs_err_pid*
 .mvn/
 myApp-boot.iml
 target/
+/.apt_generated/

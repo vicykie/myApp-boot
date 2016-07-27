@@ -1,0 +1,733 @@
+body:before, .clearfix:before {
+    content: "";
+    display: table;
+}
+
+body:after, .clearfix:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background: white;
+    font-size: 62.5%;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body {
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    text-align: left;
+}
+
+html, body {
+    min-width: 320px;
+}
+
+body, button, input, select, textarea {
+    font-size: 16px;
+    font-size: 1.6rem;
+    color: #555;
+    font-family: "Open Sans", sans-serif;
+}
+
+::-moz-selection {
+    background: #3197FC;
+    color: #fff;
+    text-shadow: none;
+}
+
+::selection {
+    background: #3197FC;
+    color: #fff;
+    text-shadow: none;
+}
+
+hr {
+    border: 0;
+    border-bottom: 1px dotted #ccc;
+    display: block;
+    height: 0;
+    margin: 21px 0;
+    padding: 0;
+}
+
+ins {
+    color: #000;
+    text-decoration: none;
+    margin-bottom: 21px !important;
+}
+
+ins ins {
+    margin-bottom: 0 !important;
+}
+
+ul, ol {
+    margin: 0 0 21px 0;
+    padding: 0 0 0 25px;
+}
+
+dd {
+    margin: 0 0 0 25px;
+}
+
+.nav ul, .nav ol {
+    list-style: none;
+    list-style-image: none;
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    border: 0;
+    -ms-interpolation-mode: bicubic;
+    vertical-align: top;
+    max-width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    img {
+        height: auto;
+    }
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+td {
+    vertical-align: top;
+}
+
+/****************************/
+*:focus {
+    outline: 0;
+}
+
+noscript {
+    display: none;
+}
+
+.overflow-hidden {
+    height: 100%;
+    overflow: hidden;
+}
+
+.clear {
+    clear: both;
+}
+
+/* Hide from both screenreaders and browsers: h5bp.com/u */
+.hidden, .print {
+    display: none !important;
+    visibility: hidden;
+}
+
+/* Helping classes by Jan Miklas */
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.center {
+    margin: 0 auto;
+}
+
+/* Contain floats: h5bp.com/q */
+.small-screen {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .small-screen {
+        display: block;
+    }
+}
+
+.small-screen-inline {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .small-screen-inline {
+        display: inline;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .not-small-screen {
+        display: none !important;
+    }
+}
+
+.medium-screen {
+    display: none;
+}
+
+@media screen and (max-width: 930px) {
+    .medium-screen {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 930px) {
+    .not-medium-screen {
+        display: none !important;
+    }
+}
+
+.on-touch {
+    display: none;
+}
+
+.touch .on-touch {
+    display: block;
+}
+
+.icon-go-to {
+    display: none;
+    line-height: 44px;
+    margin-top: -22px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 50%;
+    width: 44px;
+}
+
+.touch .icon-go-to {
+    display: block;
+}
+
+.external-links li p {
+    margin: 0;
+}
+
+.stupid-hack-to-workaround-jquerys-refocusing-onload-on-mobiles {
+    height: 1px;
+    width: 100%;
+    background: #fff;
+    display: block;
+    margin-top: -1px;
+    overflow: hidden;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    overflow: hidden;
+    position: relative;
+}
+
+body {
+    -webkit-animation: body 60s linear infinite;
+    animation: body 60s linear infinite;
+    background-color: #8dcce8;
+    position: relative;
+    -webkit-transition: background-color 10s ease;
+    transition: background-color 10s ease;
+}
+
+@media screen and (max-width: 767px) {
+    body {
+        -webkit-animation: none;
+        animation: none;
+    }
+}
+
+@-webkit-keyframes body {
+    0% {
+        background-color: #8dcce8;
+    }
+    25% {
+        background-color: #fe9900;
+    }
+    40% {
+        background-color: #222;
+    }
+    60% {
+        background-color: #222;
+    }
+    100% {
+        background-color: #8dcce8;
+    }
+}
+
+@keyframes body {
+    0% {
+        background-color: #8dcce8;
+    }
+    25% {
+        background-color: #fe9900;
+    }
+    40% {
+        background-color: #222;
+    }
+    60% {
+        background-color: #222;
+    }
+    100% {
+        background-color: #8dcce8;
+    }
+}
+
+.stars {
+    -webkit-animation: stars 60s linear infinite;
+    animation: stars 60s linear infinite;
+    background: url(../../static/images/sky.png) repeat center top, url(../../static/images/stars.png) no-repeat center top;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+@media screen and (max-width: 1024px), screen and (max-height: 580px) {
+    .stars {
+        background-size: 50%, 75%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .stars {
+        -webkit-animation: none;
+        animation: none;
+    }
+}
+
+@-webkit-keyframes stars {
+    0% {
+        opacity: 0;
+    }
+    33% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    66% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes stars {
+    0% {
+        opacity: 0;
+    }
+    33% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    66% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.sun-moon {
+    height: 200%;
+    width: 0;
+    -webkit-animation: sun-moon 60s linear infinite;
+    animation: sun-moon 60s linear infinite;
+    left: 50%;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+}
+
+@media screen and (max-width: 767px) {
+    .sun-moon {
+        -webkit-animation: none;
+        animation: none;
+    }
+}
+
+.sun {
+    height: 400px;
+    width: 400px;
+    background-color: #fbd461;
+    border-radius: 200px;
+    left: 0;
+    margin: -200px 0 0 -200px;
+    position: absolute;
+    top: 0;
+}
+
+@media screen and (max-width: 1280px), screen and (max-height: 720px) {
+    .sun {
+        height: 320px;
+        width: 320px;
+        border-radius: 160px;
+        margin: -160px 0 0 -160px;
+    }
+}
+
+@media screen and (max-width: 1024px), screen and (max-height: 580px) {
+    .sun {
+        height: 240px;
+        width: 240px;
+        border-radius: 120px;
+        margin: -120px 0 0 -120px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .sun {
+        height: 160px;
+        width: 160px;
+        border-radius: 80px;
+        margin: -80px 0 0 -80px;
+    }
+}
+
+.moon {
+    height: 200px;
+    width: 200px;
+    background-color: #f4f3ef;
+    border-radius: 100px;
+    left: 0;
+    margin: -100px 0 0 -100px;
+    position: absolute;
+    top: 100%;
+}
+
+@media screen and (max-width: 1280px), screen and (max-height: 720px) {
+    .moon {
+        height: 160px;
+        width: 160px;
+        border-radius: 80px;
+        margin: -80px 0 0 -80px;
+    }
+}
+
+@media screen and (max-width: 1024px), screen and (max-height: 580px) {
+    .moon {
+        height: 120px;
+        width: 120px;
+        border-radius: 60px;
+        margin: -60px 0 0 -60px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .moon {
+        height: 80px;
+        width: 80px;
+        border-radius: 40px;
+        margin: -40px 0 0 -40px;
+    }
+}
+
+@-webkit-keyframes sun-moon {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes sun-moon {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.background {
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: contain;
+    box-sizing: content-box;
+    left: -20px;
+    padding: 0 20px;
+    position: absolute;
+    width: 100%;
+}
+
+@media screen and (min-width: 1881px) {
+    .background {
+        background-size: 100% auto;
+        height: 100% !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .background {
+        left: -50%;
+        padding: 0 50%;
+    }
+}
+
+@media screen and (max-height: 340px) {
+    .background {
+        margin-bottom: -30px;
+    }
+}
+
+.hills {
+    background-image: url(../../static/images/hills.png);
+    bottom: 30px;
+    height: 640px;
+    z-index: 20;
+}
+
+.country {
+    background-image: url(../../static/images/country.png);
+    bottom: 2px;
+    height: 600px;
+    z-index: 40;
+}
+
+.foreground {
+    background-image: url(../../static/images/foreground.png);
+    bottom: -10px;
+    height: 400px;
+    z-index: 50;
+}
+
+.code {
+    bottom: 85px;
+    font-size: 240px;
+    font-weight: 800;
+    left: 50%;
+    line-height: 1;
+    margin-left: -300px;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    width: 600px;
+    z-index: 30;
+}
+
+@media screen and (max-width: 1680px) {
+    .code {
+        bottom: 75px;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    .code {
+        bottom: 60px;
+    }
+}
+
+@media screen and (max-width: 1280px), screen and (max-height: 720px) {
+    .code {
+        bottom: 50px;
+    }
+}
+
+@media screen and (max-width: 1024px), screen and (max-height: 580px) {
+    .code {
+        bottom: 35px;
+        font-size: 200px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .code {
+        bottom: 50px;
+        font-size: 160px;
+        left: 0;
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .code {
+        bottom: 40px;
+    }
+}
+
+@media screen and (max-height: 400px) {
+    .code {
+        bottom: 30px;
+    }
+}
+
+.code span {
+    display: inline-block;
+}
+
+.code span + span {
+    margin-left: -64px;
+}
+
+@media screen and (max-width: 1024px), screen and (max-height: 580px) {
+    .code span + span {
+        margin-left: -50px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .code span + span {
+        margin-left: -40px;
+    }
+}
+
+@media screen and (max-height: 340px) {
+    .code span + span {
+        margin-left: -30px;
+    }
+}
+
+@media screen and (max-height: 340px) {
+    .code {
+        bottom: 10px;
+        font-size: 120px;
+    }
+}
+
+.error-content {
+    bottom: 570px;
+    font-size: 48px;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    z-index: 60;
+}
+
+@media screen and (max-width: 1280px), screen and (max-height: 720px) {
+    .error-content {
+        bottom: 450px;
+        font-size: 44px;
+    }
+}
+
+@media screen and (max-width: 1024px), screen and (max-height: 580px) {
+    .error-content {
+        bottom: 400px;
+        font-size: 40px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .error-content {
+        bottom: 310px;
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-height: 440px) {
+    .error-content {
+        bottom: 270px;
+    }
+}
+
+@media screen and (max-height: 340px) {
+    .error-content {
+        top: 20px;
+    }
+}
+
+.error-content a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.error-content a:hover, .error-content a:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+.button {
+    height: 57px;
+    width: 250px;
+    /*background: url(../../img/error/button.png) no-repeat center -57px;*/
+    background-size: 250px 114px;
+    border: 2px solid #fff;
+    border-radius: 2px;
+    bottom: 470px;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 55px;
+    left: 50%;
+    margin-left: -125px;
+    overflow: hidden;
+    position: absolute;
+    text-indent: -9999px;
+    z-index: 60;
+}
+
+.button:hover, .button:focus {
+    background-position: center 0;
+}
+
+@media screen and (max-width: 1280px), screen and (max-height: 720px) {
+    .button {
+        bottom: 350px;
+    }
+}
+
+@media screen and (max-width: 1024px), screen and (max-height: 580px) {
+    .button {
+        bottom: 280px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .button {
+        bottom: 210px;
+    }
+}
+
+@media screen and (max-height: 440px) {
+    .button {
+        bottom: 190px;
+    }
+}
+
+@media screen and (max-height: 340px) {
+    .button {
+        top: 90px;
+    }
+}

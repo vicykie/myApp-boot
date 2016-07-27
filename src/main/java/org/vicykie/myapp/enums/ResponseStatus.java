@@ -39,6 +39,10 @@ public enum ResponseStatus {
      */
     ERR_LOGIN("IN000"),
     /**
+     * 登录失败
+     */
+    ACCESS_DENIED("403"),
+    /**
      * 获取数据促我
      */
     ERR_GET_DATA("GT000"),

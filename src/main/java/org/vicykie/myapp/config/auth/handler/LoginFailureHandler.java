@@ -27,10 +27,10 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         logger.error(e.getMessage());
         String contentType = request.getContentType();
         if (HttpUtils.isFormRequest(contentType)) {
-
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, e.getLocalizedMessage());
         } else {
             ObjectMapper mapper = new ObjectMapper();
-            String str = mapper.writeValueAsString(ResponseVO.loginError(e.getMessage()));
+            String str = mapper.writeValueAsString(ResponseVO.loginError(e.getLocalizedMessage()));
             PrintWriter writer = response.getWriter();
             writer.write(str);
             writer.flush();

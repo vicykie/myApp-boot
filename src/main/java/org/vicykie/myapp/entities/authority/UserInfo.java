@@ -5,18 +5,20 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.vicykie.myapp.enums.Status;
+import org.vicykie.myapp.enums.EntityStatus;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by vicykie on 2016/5/5.
  */
 @Document(collection = "user")//指定collection的名字
-public class UserInfo implements Serializable, UserDetails {
+public class UserInfo implements UserDetails {
     @Id
     private String id;
     private String username;
@@ -33,25 +35,37 @@ public class UserInfo implements Serializable, UserDetails {
     @Field("last_password_reset")
     @JsonIgnore
     private Date lastPasswordReset;
-    private Status status = Status.ENABLE;
+    private EntityStatus entityStatus = EntityStatus.ENABLE;
     private String salt;
     private String address;
     private boolean isLocked;
+//    @Transient
+//    private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserInfo(String username, String name, Status status, int score, int age) {
+    public UserInfo(String username, String name, EntityStatus entityStatus, int score, int age) {
         this.username = username;
         this.name = name;
-        this.status = status;
+        this.entityStatus = entityStatus;
         this.score = score;
         this.age = age;
+//        this.authorities = this.getAuthorities();
     }
 
     public UserInfo() {
+//        this.authorities = this.getAuthorities();
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> authorities = null;
+        if (this.roleInfo != null) {
+            authorities = new ArrayList<>();
+            GrantedAuthority authority = new SimpleGrantedAuthority(this.roleInfo.getRoleName());
+            authorities.add(authority);
+        }
+
+        return authorities;
     }
 
     @Override
@@ -59,9 +73,17 @@ public class UserInfo implements Serializable, UserDetails {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -92,14 +114,6 @@ public class UserInfo implements Serializable, UserDetails {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getName() {
         return name;
     }
@@ -124,12 +138,12 @@ public class UserInfo implements Serializable, UserDetails {
         this.expireDate = expireDate;
     }
 
-    public Status getStatus() {
-        return status;
+    public EntityStatus getEntityStatus() {
+        return entityStatus;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setEntityStatus(EntityStatus entityStatus) {
+        this.entityStatus = entityStatus;
     }
 
     public int getAge() {

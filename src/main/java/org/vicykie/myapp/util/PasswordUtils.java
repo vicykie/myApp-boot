@@ -66,10 +66,10 @@ public class PasswordUtils {
         return md5.encodePassword(password, salt);//
     }
 
-
-    public static void main(String[] args) throws NoSuchAlgorithmException {
-        String or = "123456";
-        String salt = "123";
-        System.out.println(encodeUserPassword(or, salt));//7c34bb7c545506787cc1bbd6987d5dac
-    }
+//
+//    public static void main(String[] args) throws NoSuchAlgorithmException {
+//        String or = "123456";
+//        String salt = "123";
+//        System.out.println(encodeUserPassword(or, salt));//7c34bb7c545506787cc1bbd6987d5dac
+//    }
 }

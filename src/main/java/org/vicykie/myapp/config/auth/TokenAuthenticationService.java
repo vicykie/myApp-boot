@@ -1,11 +1,11 @@
 package org.vicykie.myapp.config.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.vicykie.myapp.config.auth.handler.UserAuthTokenHandler;
 import org.vicykie.myapp.entities.authority.UserInfo;
-import org.vicykie.myapp.util.UserAuthTokenHandler;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,15 +22,32 @@ public class TokenAuthenticationService {
 
     public void addAuthentication(HttpServletResponse response, UserAuthentication authentication) {
         final UserInfo user = (UserInfo) authentication.getDetails();
-        response.addHeader(AUTH_HEADER_NAME, tokenHandler.generateToken(user));
+        String token = tokenHandler.generateToken(user);
+        response.addHeader(AUTH_HEADER_NAME, token);
+        Cookie cookie = new Cookie(AUTH_HEADER_NAME, token);
+//        cookie.setMaxAge(-1);
+        response.addCookie(cookie);
     }
 
-    public Authentication getAuthentication(HttpServletRequest request) {
-        final String token = request.getHeader(AUTH_HEADER_NAME);
+    public UserAuthentication getAuthentication(HttpServletRequest request) {
+        String token = request.getHeader(AUTH_HEADER_NAME);
         if (token != null) {
             final UserInfo user = tokenHandler.parseToken(token);
             if (user != null) {
                 return new UserAuthentication(user);
+            }
+        } else {
+            Cookie[] cookies = request.getCookies();
+            if (null != cookies && cookies.length != 0) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equalsIgnoreCase(AUTH_HEADER_NAME)) {
+                        token = cookie.getValue();
+                        UserInfo user = tokenHandler.parseToken(token);
+                        if (user != null) {
+                            return new UserAuthentication(user);
+                        }
+                    }
+                }
             }
         }
         return null;

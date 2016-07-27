@@ -2,7 +2,7 @@
 <head>
 
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>se</title>
+    <title>auths</title>
 
 <#--<script data-main="${springMacroRequestContext.contextPath}/static/assets/js/main.js"-->
 <#--src="${springMacroRequestContext.contextPath}/static/assets/js/require/require.js"></script>-->
@@ -12,16 +12,13 @@
     <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap-table/1.10.1/extensions/export/bootstrap-table-export.js"></script>
-    <script src="${springMacroRequestContext.contextPath}/static/assets/js/tableExport.min.js"></script>
+    <script src="${springMacroRequestContext.contextPath}/js/lib/tableExport/tableExport.min.js"></script>
     <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/bootstrap-table/1.10.1/bootstrap-table.css" rel="stylesheet">
 </head>
 <body>
 <div class="panel panel-primary">
-<#list roles as r >
-        ${r.roleName}
-    </#list>
-
+    <div class="text-danger text-center" style="font-size: 44px">${responseVO.rspMsg}</div>
 </div>
 <script>
 

@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import org.vicykie.myapp.dao.UserDAO;
+import org.vicykie.myapp.entities.authority.AuthorityInfo;
 import org.vicykie.myapp.entities.authority.RoleInfo;
 import org.vicykie.myapp.entities.authority.UserInfo;
 
@@ -34,7 +35,7 @@ public class MongoUserDAOImpl implements UserDAO {
     }
 
     @Override
-    public UserInfo getUserById(int id) {
+    public UserInfo getUserById(String id) {
         Criteria criteria = new Criteria("_id");
         criteria.is(id);
         Query query = new Query(criteria);
@@ -61,5 +62,22 @@ public class MongoUserDAOImpl implements UserDAO {
     public int addRole(RoleInfo role) {
         template.insert(role);
         return 0;
+    }
+
+    @Override
+    public int addAuth(AuthorityInfo authorityInfo) {
+        template.insert(authorityInfo);
+        return 0;
+    }
+
+    @Override
+    public int updateUser(UserInfo info) {
+        template.save(info);
+        return 0;
+    }
+
+    @Override
+    public RoleInfo getRoleById(String roleId) {
+        return template.findById(roleId, RoleInfo.class);
     }
 }

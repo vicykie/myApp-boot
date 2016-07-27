@@ -1,6 +1,8 @@
 package org.vicykie.myapp.dao;
 
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.vicykie.myapp.entities.authority.AuthorityInfo;
 import org.vicykie.myapp.entities.authority.RoleInfo;
 import org.vicykie.myapp.entities.authority.UserInfo;
 
@@ -14,11 +16,19 @@ public interface UserDAO {
 
     int deleteUser(UserInfo user);
 
-    UserInfo getUserById(int id);
+    UserInfo getUserById(String id);
 
     UserInfo getUserByUsername(String username);
 
     List<UserInfo> getAllUsers();
 
+    @CacheEvict(value = "_myApp_roles", allEntries = true)
     int addRole(RoleInfo role);
+
+    @CacheEvict(value = "_myApp_auths", allEntries = true)
+    int addAuth(AuthorityInfo authorityInfo);
+
+    int updateUser(UserInfo info);
+
+    RoleInfo getRoleById(String roleId);
 }

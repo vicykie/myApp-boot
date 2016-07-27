@@ -1,0 +1,101 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width,maximum-scale=1,user-scalable=no,minimal-ui">
+    <title>404 Not Found</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/css.css">
+    <link rel="stylesheet" type="text/css" media="all" href="/static/css/error.css">
+</head>
+<body>
+
+
+<div class="stars"></div>
+
+<div class="sun-moon">
+    <div class="sun"></div>
+    <div class="moon"></div>
+</div>
+
+<div id="js-hills" class="background hills"></div>
+<div id="js-country" class="background country"></div>
+<div id="js-foreground" class="background foreground"></div>
+
+<div class="error-content">
+    抱歉，页面被外星人抓走了<br>
+    你可以返回 <a href="/">主页</a>.
+</div>
+
+
+<div class="code">
+    <span>4</span>
+    <span>0</span>
+    <span>4</span>
+</div>
+
+<!--
+	<script type="text/javascript">
+	var mouse = { x: 0, y: 0 },
+		gyro = { x: 0, y: 0 },
+		updateGyro = false,
+		updateMouse = false,
+		customEvent = null,
+		hills = document.getElementById('js-hills'),
+		country = document.getElementById('js-country'),
+		foreground = document.getElementById('js-foreground'),
+		windowWidth = window.innerWidth,
+		isiPad = navigator.userAgent.match(/iPad/i) != null;
+
+	if (windowWidth > 1024) {
+		document.addEventListener('mousemove', function(e){
+			updateMouse = true;
+			customEvent = e;
+		}, false);
+	}
+
+	if (isiPad) {
+		window.addEventListener('deviceorientation', function(e){
+			updateGyro = true;
+			customEvent = e;
+		}, false);
+	}
+
+	setInterval(function(){
+		if (updateGyro) {
+			updateGyro = false;
+			updateOnGyroscope(customEvent);
+		}
+		if (updateMouse) {
+			updateMouse = false;
+			updateOnMouse(customEvent);
+		}
+	}, 50)
+
+	function updateOnMouse(e) {
+		mouse.x = (Math.round( 200 * (e.clientX || e.pageX) / window.innerWidth) - 100) / 100;
+		mouse.y = (Math.round( 200 * (e.clientY || e.pageY) / window.innerHeight) - 100) / 100;
+		hills.style.transform      = "translate3d(" + mouse.x * 10  + "px, " + mouse.y * 10  + "px, 0)";
+		country.style.transform    = "translate3d(" + mouse.x * -5 + "px, " + mouse.y * -5 + "px, 0)";
+		foreground.style.transform = "translate3d(" + mouse.x * -10  + "px, " + mouse.y * -10  + "px, 0)";
+	}
+
+	function updateOnGyroscope(e) {
+		gyro.x = Math.round((e.beta % 90) * 10 / 9) / 100;
+		gyro.y = Math.round((e.gamma % 90) * 10 / 9) / 100;
+		hills.style.transform      = "translate3d(" + gyro.x * 20  + "px, " + gyro.y * 20  + "px, 0)";
+		country.style.transform    = "translate3d(" + gyro.x * -10 + "px, " + gyro.y * -10 + "px, 0)";
+		foreground.style.transform = "translate3d(" + gyro.x * -20 + "px, " + gyro.y * -20 + "px, 0)";
+		hills.style.webkitTransform      = "translate3d(" + gyro.x * 20  + "px, " + gyro.y * 20  + "px, 0)";
+		country.style.webkitTransform    = "translate3d(" + gyro.x * -10 + "px, " + gyro.y * -10 + "px, 0)";
+		foreground.style.webkitTransform = "translate3d(" + gyro.x * -20 + "px, " + gyro.y * -20 + "px, 0)";
+	}
+	</script>
+-->
+
+<!-- Server: 10.1.1.39 -->
+
+<!-- #TB_MON#CHSET#b3235145cb5e#AWSID#10.1.1.39#TB_MON# -->
+
+</body>
+</html>
