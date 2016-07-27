@@ -28,7 +28,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 /**
- * Created by d on 2016/5/5.
+ * Created by vicykie on 2016/5/5.
  */
 @RequestMapping("/user")
 @Controller("userCTL")
@@ -107,6 +107,7 @@ public class UserCTL extends AbstractUserController {
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     @ResponseBody
+//    @JsonView(UserInfo.NoPassWord.class)
     public List<UserInfo> getAllUsers() {
         List<UserInfo> users = userDAO.getAllUsers();
         return users;

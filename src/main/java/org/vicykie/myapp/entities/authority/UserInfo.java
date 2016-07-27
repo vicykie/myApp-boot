@@ -1,6 +1,6 @@
 package org.vicykie.myapp.entities.authority;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -20,24 +20,35 @@ import java.util.List;
 @Document(collection = "user")//指定collection的名字
 public class UserInfo implements UserDetails {
     @Id
+    @JsonView(UserInfo.NoPassWord.class)
     private String id;
+    @JsonView(UserInfo.NoPassWord.class)
     private String username;
     //    @JsonIgnore
     private String password;
+    @JsonView(UserInfo.NoPassWord.class)
     private String name;
+    @JsonView(UserInfo.NoPassWord.class)
     private int age;
+    @JsonView(UserInfo.NoPassWord.class)
     private int score;
+//    @JsonView(UserInfo.NoPassWord.class)
     private RoleInfo roleInfo;
+    @JsonView(UserInfo.NoPassWord.class)
     @Field(value = "create_date")
     private Date createDate = new Date();
     @Field("expire_date")
+    @JsonView(UserInfo.NoPassWord.class)
     private Date expireDate;
     @Field("last_password_reset")
-    @JsonIgnore
     private Date lastPasswordReset;
+    @JsonView(UserInfo.NoPassWord.class)
     private EntityStatus entityStatus = EntityStatus.ENABLE;
+    @JsonView(UserInfo.NoPwdAndSalt.class)
     private String salt;
+    @JsonView(UserInfo.NoPassWord.class)
     private String address;
+    @JsonView(UserInfo.NoPassWord.class)
     private boolean isLocked;
 //    @Transient
 //    private final Collection<? extends GrantedAuthority> authorities;
@@ -201,4 +212,7 @@ public class UserInfo implements UserDetails {
     public void setLocked(boolean locked) {
         isLocked = locked;
     }
+    public interface  NoPassWord{}
+
+    public interface NoPwdAndSalt{}
 }
