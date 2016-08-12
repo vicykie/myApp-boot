@@ -20,8 +20,8 @@ import java.util.List;
  * Created by vicykie on 2016/6/14.
  */
 public class StatelessAuthenticationFilter extends GenericFilterBean {
-    private String[] excludeUriList = {"/", "/auth/login", "/401.html", "/404.html",
-            "/500.html"};
+    private String[] excludeUriList = {"/", "/auth/login", "/static/401.html", "/static/404.html",
+            "/static/500.html"};
     private final TokenAuthenticationService tokenAuthenticationService;
     private final UserAuthChecker userAuthChecker;
 

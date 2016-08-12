@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         // unAuthentication
-        http.exceptionHandling().accessDeniedPage("/401.html").authenticationEntryPoint(unAuthenticationEntryPoint);
+        http.exceptionHandling().accessDeniedPage("/static/401.html").authenticationEntryPoint(unAuthenticationEntryPoint);
         // session stateless
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         // resources matcher auth

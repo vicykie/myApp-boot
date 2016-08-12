@@ -305,7 +305,7 @@ body {
 .stars {
     -webkit-animation: stars 60s linear infinite;
     animation: stars 60s linear infinite;
-    background: url(../../static/images/sky.png) repeat center top, url(../../static/images/stars.png) no-repeat center top;
+    background: url(../images/sky.png) repeat center top, url(../images/stars.png) no-repeat center top;
     bottom: 0;
     left: 0;
     opacity: 0;
@@ -511,21 +511,21 @@ body {
 }
 
 .hills {
-    background-image: url(../../static/images/hills.png);
+    background-image: url(../images/hills.png);
     bottom: 30px;
     height: 640px;
     z-index: 20;
 }
 
 .country {
-    background-image: url(../../static/images/country.png);
+    background-image: url(../images/country.png);
     bottom: 2px;
     height: 600px;
     z-index: 40;
 }
 
 .foreground {
-    background-image: url(../../static/images/foreground.png);
+    background-image: url(../images/foreground.png);
     bottom: -10px;
     height: 400px;
     z-index: 50;

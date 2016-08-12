@@ -39,7 +39,7 @@
 
             },
             error:function (re,st) {
-                console.log(re.status)
+                console.log(re.status);
                 console.log(re.responseText)
             }
         });

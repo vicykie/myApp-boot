@@ -36,8 +36,8 @@ public class TokenAuthenticationService {
 
     public UserAuthentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(AUTH_HEADER_NAME);
-        log.info(MessageFormat.format("get token {0} from request header。", token));
         if (token != null) {
+            log.info(MessageFormat.format("get token from request header 【{0}】 ", token));
             final UserInfo user = tokenHandler.parseToken(token);
             if (user != null) {
                 return new UserAuthentication(user);
@@ -48,7 +48,7 @@ public class TokenAuthenticationService {
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equalsIgnoreCase(AUTH_HEADER_NAME)) {
                         token = cookie.getValue();
-                        log.info(MessageFormat.format("get token {0} from cookie", token));
+                        log.info(MessageFormat.format("get token from cookie【{0}】 ", token));
                         UserInfo user = tokenHandler.parseToken(token);
                         if (user != null) {
                             return new UserAuthentication(user);

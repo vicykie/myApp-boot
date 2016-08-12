@@ -6,7 +6,7 @@
     <groupId>org.vicykie.myApp</groupId>
     <artifactId>myApp-boot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-
+    <packaging>jar</packaging>
     <name>myApp-boot</name>
     <description>myApp with spring boot</description>
 
@@ -124,6 +124,22 @@
     </dependencies>
 
     <build>
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>${basedir}/src/main/webapp</directory>-->
+                <!--&lt;!&ndash;注意此次必须要放在此目录下才能被访问到&ndash;&gt;-->
+                <!--<targetPath>META-INF/</targetPath>-->
+                <!--<includes>-->
+                    <!--<include>**/**</include>-->
+                <!--</includes>-->
+            <!--</resource>-->
+            <!--<resource>-->
+                <!--<directory>${basedir}/src/main/resources</directory>-->
+                <!--<includes>-->
+                    <!--<include>**/**</include>-->
+                <!--</includes>-->
+            <!--</resource>-->
+        <!--</resources>-->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
