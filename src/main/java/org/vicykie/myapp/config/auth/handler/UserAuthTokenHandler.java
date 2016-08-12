@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.stereotype.Component;
 import org.vicykie.myapp.entities.authority.RoleInfo;
 import org.vicykie.myapp.entities.authority.UserInfo;
@@ -33,6 +34,7 @@ public class UserAuthTokenHandler {
     private final String CLAIMS_ROLES = "roles";
     private final String CLAIMS_USER_EXPIRE_DATE = "expire_date";
     private final String CLAIMS_USER_CREATE_DATE = "create_date";
+    private final String CLAIMS_USER_RESET_PWD = "reset_pwd";
 
     private String securityKey;
 
@@ -44,8 +46,14 @@ public class UserAuthTokenHandler {
         this.securityKey = securityKey;
     }
 
-    private long expiration = 604800L;//7days
+    private final long expiration = 604800L;//7days
 
+    /**
+     * 生成token
+     *
+     * @param user
+     * @return
+     */
     public String generateToken(UserInfo user) {
         String username = user.getUsername();
         String name = user.getName();
@@ -53,6 +61,7 @@ public class UserAuthTokenHandler {
         RoleInfo role = user.getRoleInfo();
         Date createDate = user.getCreateDate();
         Date expireDate = user.getExpireDate();
+        Date lastPasswordReset = user.getLastPasswordReset();
         /**
          * 放入相关信息
          */
@@ -65,36 +74,62 @@ public class UserAuthTokenHandler {
         claims.put(CLAIMS_ROLES, role);
         claims.put(CLAIMS_USER_CREATE_DATE, createDate);
         claims.put(CLAIMS_USER_EXPIRE_DATE, expireDate);
+        if (lastPasswordReset != null)
+            claims.put(CLAIMS_USER_RESET_PWD, lastPasswordReset);
         claims.put(Claims.EXPIRATION, this.generateExpirationDate());
-        logger.info("token: " + this.generateToken(claims));
+        logger.info("login success , generate user token: " + this.generateToken(claims));
         return this.generateToken(claims);
 
     }
 
-
-    public UserInfo parseToken(String token) {
+    /**
+     * 转换token
+     *
+     * @param token
+     * @return
+     * @throws CredentialsExpiredException
+     */
+    public UserInfo parseToken(String token) throws CredentialsExpiredException {
         UserInfo user = new UserInfo();
         final Claims claims = this.getClaimsFromToken(token);
+        user.setCredentialsNonExpired(!this.isTokenExpired(token));
         user.setUsername(claims.getSubject());
         user.setName((String) claims.get(CLAIMS_USER_NAME));
         user.setCreateDate(new Date((Long) claims.get(CLAIMS_USER_CREATE_DATE)));
         user.setExpireDate(new Date((Long) claims.get(CLAIMS_USER_EXPIRE_DATE)));
+        if (claims.get(CLAIMS_USER_RESET_PWD) != null)
+            user.setLastPasswordReset(new Date((Long) claims.get(CLAIMS_USER_RESET_PWD)));
         RoleInfo roleInfo = getRoleInfo(claims);
         user.setRoleInfo(roleInfo);
         return user;
     }
 
+    /**
+     * 获取role
+     *
+     * @param claims
+     * @return
+     */
     private RoleInfo getRoleInfo(Claims claims) {
-        RoleInfo roleInfo = new RoleInfo();
+        RoleInfo roleInfo = null;
         Map role = (Map) claims.get(CLAIMS_ROLES);
-        roleInfo.setCreateDate(new Date((Long) role.get("createDate")));
-        roleInfo.setDescription((String) role.get("description"));
-        roleInfo.setEntityStatus(EntityStatus.values()[(int) role.get("entityStatus")]);
-        roleInfo.setRoleName((String) role.get("roleName"));
-        roleInfo.setId((String) role.get("id"));
+        if (role != null) {
+            roleInfo = new RoleInfo();
+            roleInfo.setCreateDate(new Date((Long) role.get("createDate")));
+            roleInfo.setDescription((String) role.get("description"));
+            roleInfo.setEntityStatus(EntityStatus.values()[(int) role.get("entityStatus")]);
+            roleInfo.setRoleName((String) role.get("roleName"));
+            roleInfo.setId((String) role.get("id"));
+        }
         return roleInfo;
     }
 
+    /**
+     * 获取用户名
+     *
+     * @param token
+     * @return
+     */
     public String getUsernameFromToken(String token) {
         String username;
         try {
@@ -157,7 +192,7 @@ public class UserAuthTokenHandler {
         String refreshedToken;
         try {
             final Claims claims = this.getClaimsFromToken(token);
-            claims.put("created", this.generateCurrentDate());//更新时间
+            claims.put(CLAIMS_CREATED, this.generateCurrentDate());//更新时间
             refreshedToken = this.generateToken(claims);
         } catch (Exception e) {
             refreshedToken = null;

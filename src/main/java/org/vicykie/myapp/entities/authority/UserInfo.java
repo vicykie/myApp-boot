@@ -1,12 +1,15 @@
 package org.vicykie.myapp.entities.authority;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.CollectionUtils;
 import org.vicykie.myapp.enums.EntityStatus;
 
 import java.util.ArrayList;
@@ -20,36 +23,32 @@ import java.util.List;
 @Document(collection = "user")//指定collection的名字
 public class UserInfo implements UserDetails {
     @Id
-    @JsonView(UserInfo.NoPassWord.class)
     private String id;
-    @JsonView(UserInfo.NoPassWord.class)
     private String username;
-    //    @JsonIgnore
+    @JsonIgnore
     private String password;
-    @JsonView(UserInfo.NoPassWord.class)
     private String name;
-    @JsonView(UserInfo.NoPassWord.class)
     private int age;
-    @JsonView(UserInfo.NoPassWord.class)
     private int score;
-//    @JsonView(UserInfo.NoPassWord.class)
     private RoleInfo roleInfo;
-    @JsonView(UserInfo.NoPassWord.class)
     @Field(value = "create_date")
     private Date createDate = new Date();
     @Field("expire_date")
-    @JsonView(UserInfo.NoPassWord.class)
     private Date expireDate;
     @Field("last_password_reset")
     private Date lastPasswordReset;
-    @JsonView(UserInfo.NoPassWord.class)
     private EntityStatus entityStatus = EntityStatus.ENABLE;
-    @JsonView(UserInfo.NoPwdAndSalt.class)
     private String salt;
-    @JsonView(UserInfo.NoPassWord.class)
     private String address;
-    @JsonView(UserInfo.NoPassWord.class)
     private boolean isLocked;
+
+    /**
+     * token过期判断
+     */
+    @Transient
+    private boolean isCredentialsNonExpired = true;
+
+
 //    @Transient
 //    private final Collection<? extends GrantedAuthority> authorities;
 
@@ -59,7 +58,6 @@ public class UserInfo implements UserDetails {
         this.entityStatus = entityStatus;
         this.score = score;
         this.age = age;
-//        this.authorities = this.getAuthorities();
     }
 
     public UserInfo() {
@@ -72,8 +70,13 @@ public class UserInfo implements UserDetails {
         List<GrantedAuthority> authorities = null;
         if (this.roleInfo != null) {
             authorities = new ArrayList<>();
-            GrantedAuthority authority = new SimpleGrantedAuthority(this.roleInfo.getRoleName());
+            GrantedAuthority authority = new SimpleGrantedAuthority(this.roleInfo.getAuthority());
             authorities.add(authority);
+            if (!CollectionUtils.isEmpty(roleInfo.getOperations())){
+                GrantedAuthority authority1 = new SimpleGrantedAuthority(this.roleInfo.getAuthority());
+
+
+            }
         }
 
         return authorities;
@@ -107,9 +110,13 @@ public class UserInfo implements UserDetails {
         return !isLocked;
     }
 
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        isCredentialsNonExpired = credentialsNonExpired;
+    }
+
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return isCredentialsNonExpired;
     }
 
     @Override
@@ -212,7 +219,5 @@ public class UserInfo implements UserDetails {
     public void setLocked(boolean locked) {
         isLocked = locked;
     }
-    public interface  NoPassWord{}
 
-    public interface NoPwdAndSalt{}
 }

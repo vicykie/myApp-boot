@@ -34,9 +34,12 @@
                     document.cookie = tokenManager.tokenHeader + "=" + authToken;
                     window.location.href = re.data;
                 } else {
-                    alert(re.rspMsg);
+                    alert(status);
                 }
 
+            },
+            error:function (re,st) {
+                alert(st)
             }
         });
     }

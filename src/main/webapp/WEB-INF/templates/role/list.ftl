@@ -12,7 +12,6 @@
     <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap-table/1.10.1/extensions/export/bootstrap-table-export.js"></script>
-    <script src="${springMacroRequestContext.contextPath}/static/assets/js/tableExport.min.js"></script>
     <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/bootstrap-table/1.10.1/bootstrap-table.css" rel="stylesheet">
 </head>
@@ -21,7 +20,7 @@
 <#list roleList as r >
     ${r.roleName}</br>
 </#list>
-    sss
+
 </div>
 <script>
 

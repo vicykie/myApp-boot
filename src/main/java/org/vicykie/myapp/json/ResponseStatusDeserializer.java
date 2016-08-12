@@ -15,7 +15,7 @@ public class ResponseStatusDeserializer extends JsonDeserializer<ResponseStatus>
 
 
     @Override
-    public ResponseStatus deserialize(JsonParser p, DeserializationContext ctxt)
+    public ResponseStatus deserialize(JsonParser p, DeserializationContext ctx)
             throws IOException {
         String value = p.getValueAsString();
         ResponseStatus responseStatus = ResponseStatus.getResponseStatusByCode(value, ResponseStatus.UNKOWN);

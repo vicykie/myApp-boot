@@ -3,7 +3,7 @@ package org.vicykie.myapp.service.cache.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
-import org.vicykie.myapp.entities.authority.AuthorityInfo;
+import org.vicykie.myapp.entities.authority.OperationInfo;
 import org.vicykie.myapp.entities.authority.RoleInfo;
 import org.vicykie.myapp.service.cache.CacheService;
 
@@ -23,7 +23,7 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public List<AuthorityInfo> getAuthList() {
-        return template.findAll(AuthorityInfo.class);
+    public List<OperationInfo> getAuthList() {
+        return template.findAll(OperationInfo.class);
     }
 }

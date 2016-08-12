@@ -22,9 +22,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserInfo loadUserByUsername(String username) throws UsernameNotFoundException {
+        logger.info("查询用户。。。");
         UserInfo user = userDAO.getUserByUsername(username);
         if (user == null) throw new UsernameNotFoundException("user not found");
-        logger.info("查询用户。。。");
         checker.check(user);
         return user;
     }

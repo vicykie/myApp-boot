@@ -1,7 +1,10 @@
 package org.vicykie.myapp.web;
 
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +26,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.StringReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
@@ -32,6 +37,7 @@ import java.util.List;
  */
 @RequestMapping("/user")
 @Controller("userCTL")
+@PreAuthorize("hasAnyRole('USER','ADMIN')")
 public class UserCTL extends AbstractUserController {
     @Autowired
     @Qualifier("mongoUserDAO")      //根据名称
@@ -64,18 +70,6 @@ public class UserCTL extends AbstractUserController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model) {
-        // model.addAttribute("user", userDAO.getUserById("dd"));
-        Enumeration<String> headerNames = request.getHeaderNames();
-        System.out.println("-----------request headers -----------------");
-        while (headerNames.hasMoreElements()) {
-            System.out.println(headerNames.nextElement());
-        }
-
-        System.out.println("-----------security context -----------------");
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(principal);
-
-
         return "user/list";
     }
 
@@ -113,13 +107,9 @@ public class UserCTL extends AbstractUserController {
         return users;
     }
 
-    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
-        String xmlStr ="";
-        StringReader sr = new StringReader(xmlStr);
-        InputSource is = new InputSource(sr);
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder=factory.newDocumentBuilder();
-        Document doc = builder.parse(is);
-        doc.getXmlEncoding();
+    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException, ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = format.parse("2016-08-01");
+        System.out.println(new Date().after(date));
     }
 }

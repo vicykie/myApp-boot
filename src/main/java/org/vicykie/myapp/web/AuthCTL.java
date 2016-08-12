@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.vicykie.myapp.dao.UserDAO;
-import org.vicykie.myapp.entities.authority.AuthorityInfo;
+import org.vicykie.myapp.entities.authority.OperationInfo;
 import org.vicykie.myapp.entities.authority.RoleInfo;
 import org.vicykie.myapp.vo.ResponseVO;
 
@@ -43,7 +43,7 @@ public class AuthCTL extends AbstractUserController {
     }
 
     @RequestMapping(value = "auth/add", method = RequestMethod.POST)
-    public String addAuth(Model model, AuthorityInfo authorityInfo) {
+    public String addAuth(Model model, OperationInfo authorityInfo) {
         int roleId = userDAO.addAuth(authorityInfo);
         return "redirect:list";
     }

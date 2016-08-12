@@ -1,7 +1,7 @@
 package org.vicykie.myapp.service.cache;
 
 import org.springframework.cache.annotation.Cacheable;
-import org.vicykie.myapp.entities.authority.AuthorityInfo;
+import org.vicykie.myapp.entities.authority.OperationInfo;
 import org.vicykie.myapp.entities.authority.RoleInfo;
 
 import java.util.List;
@@ -15,5 +15,5 @@ public interface CacheService {
     List<RoleInfo> getRoles();
 
     @Cacheable(value = "_myApp_auths")
-    List<AuthorityInfo> getAuthList();
+    List<OperationInfo> getAuthList();
 }

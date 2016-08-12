@@ -2,7 +2,7 @@ package org.vicykie.myapp.dao;
 
 
 import org.springframework.cache.annotation.CacheEvict;
-import org.vicykie.myapp.entities.authority.AuthorityInfo;
+import org.vicykie.myapp.entities.authority.OperationInfo;
 import org.vicykie.myapp.entities.authority.RoleInfo;
 import org.vicykie.myapp.entities.authority.UserInfo;
 
@@ -26,7 +26,7 @@ public interface UserDAO {
     int addRole(RoleInfo role);
 
     @CacheEvict(value = "_myApp_auths", allEntries = true)
-    int addAuth(AuthorityInfo authorityInfo);
+    int addAuth(OperationInfo authorityInfo);
 
     int updateUser(UserInfo info);
 

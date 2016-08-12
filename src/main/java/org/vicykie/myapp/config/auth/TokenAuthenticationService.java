@@ -1,6 +1,8 @@
 package org.vicykie.myapp.config.auth;
 
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.vicykie.myapp.config.auth.handler.UserAuthTokenHandler;
 import org.vicykie.myapp.entities.authority.UserInfo;
@@ -8,12 +10,14 @@ import org.vicykie.myapp.entities.authority.UserInfo;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.MessageFormat;
 
 /**
  * Created by vicykie on 2016/6/14.
  */
 
 @Service("tokenService")
+@Log4j
 public class TokenAuthenticationService {
     private final static String AUTH_HEADER_NAME = "X-AUTH-TOKEN";
     @Autowired
@@ -21,7 +25,8 @@ public class TokenAuthenticationService {
 
 
     public void addAuthentication(HttpServletResponse response, UserAuthentication authentication) {
-        final UserInfo user = (UserInfo) authentication.getDetails();
+        SecurityContextHolder.clearContext();
+        final UserInfo user = authentication.getDetails();
         String token = tokenHandler.generateToken(user);
         response.addHeader(AUTH_HEADER_NAME, token);
         Cookie cookie = new Cookie(AUTH_HEADER_NAME, token);
@@ -31,6 +36,7 @@ public class TokenAuthenticationService {
 
     public UserAuthentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(AUTH_HEADER_NAME);
+        log.info(MessageFormat.format("get token {0} from request header。", token));
         if (token != null) {
             final UserInfo user = tokenHandler.parseToken(token);
             if (user != null) {
@@ -42,6 +48,7 @@ public class TokenAuthenticationService {
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equalsIgnoreCase(AUTH_HEADER_NAME)) {
                         token = cookie.getValue();
+                        log.info(MessageFormat.format("get token {0} from cookie", token));
                         UserInfo user = tokenHandler.parseToken(token);
                         if (user != null) {
                             return new UserAuthentication(user);
