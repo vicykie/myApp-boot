@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         // unAuthentication
-        http.exceptionHandling().accessDeniedPage("/static/401.html").authenticationEntryPoint(unAuthenticationEntryPoint);
+        http.exceptionHandling().accessDeniedPage("/401.html").authenticationEntryPoint(unAuthenticationEntryPoint);
         // session stateless
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         // resources matcher auth
@@ -76,7 +76,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/static/**").permitAll()
-                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/js/**").permitAll()
+                .antMatchers("/images/**").permitAll()
+                .antMatchers("/css/**").permitAll()
                 .antMatchers("/role/**").permitAll()
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()

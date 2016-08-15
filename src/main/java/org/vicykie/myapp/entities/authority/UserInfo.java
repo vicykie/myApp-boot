@@ -1,9 +1,9 @@
 package org.vicykie.myapp.entities.authority;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +24,7 @@ import java.util.List;
 public class UserInfo implements UserDetails {
     @Id
     private String id;
+    @Indexed(unique = true)
     private String username;
     @JsonIgnore
     private String password;

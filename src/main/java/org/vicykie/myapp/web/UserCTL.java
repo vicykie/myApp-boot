@@ -61,6 +61,7 @@ public class UserCTL extends AbstractUserController {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String toAddUserPage(Model model) {
+        System.out.println(1/0);
         return "user/add";
     }
 
