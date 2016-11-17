@@ -12,10 +12,10 @@
     </p>
     <p>
         <label for="password">Password</label>
-        <input type="password" id="password" name="password"/>
+        <input id="login-btn"  type="password" id="password" name="password"/>
     </p>
 
-    <button type="button" class="btn" onclick="login()">Log in</button>
+    <button type="button" class="btn"  onclick="login()">Log in</button>
 </form>
 <script src="${rc.contextPath}/static/js/lib/jquery/jquery.min.js"></script>
 <script src="${rc.contextPath}/static/js/lib/tokenManager/tokenManager.js"></script>
@@ -34,7 +34,7 @@
                     document.cookie = tokenManager.tokenHeader + "=" + authToken;
                     window.location.href = re.data;
                 } else {
-                    alert(status);
+                    alert(re.rspMsg);
                 }
 
             },
@@ -44,6 +44,13 @@
             }
         });
     }
+    $(function () {
+        $("#login-btn").keydown(function (e) {
+            if(e.keyCode==13){
+                login();
+            }
+        })
+    })
 </script>
 </body>
 </html>

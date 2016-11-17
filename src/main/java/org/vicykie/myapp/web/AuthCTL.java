@@ -2,6 +2,7 @@ package org.vicykie.myapp.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,12 +11,14 @@ import org.vicykie.myapp.dao.UserDAO;
 import org.vicykie.myapp.entities.authority.OperationInfo;
 import org.vicykie.myapp.entities.authority.RoleInfo;
 import org.vicykie.myapp.vo.ResponseVO;
+import org.vicykie.myapp.web.user.AbstractUserController;
 
 /**
  * Created by vicykie on 2016/6/28.
  */
 @Controller
 @RequestMapping
+@PreAuthorize("hasRole('ADMIN')")
 public class AuthCTL extends AbstractUserController {
     @Autowired
     @Qualifier("mongoUserDAO")      //根据名称

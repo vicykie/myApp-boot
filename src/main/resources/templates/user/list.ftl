@@ -12,7 +12,10 @@
 </head>
 <body>
 <div class="panel panel-primary">
+    <form id="auth-logout" action="/auth/logout" method="post">
+
     <button type="button" id="btn-logout" class="btn btn-primary">退出</button>
+    </form>
     <div class="panel-body">
         <table class="table " id="table-users"
                data-url="/user/users">
@@ -30,12 +33,23 @@
             </thead>
         </table>
     </div>
+    <button class="btn btn-success" id="add-test">添加</button>
 </div>
 <script>
     $(function () {
         $("#table-users").bootstrapTable();
         $("#btn-logout").on("click",function () {
-
+            $("#auth-logout").submit();
+        });
+        $("#add-test").on("click",function () {
+           $.ajax({
+               url:"/user/test",
+               data:{username:"adb",id:"123",name:'name'},
+               type:'post',
+               success:function (res) {
+                   console.log(res);
+               }
+           })
         });
     });
     function enabledFormatter(value, row, index) {

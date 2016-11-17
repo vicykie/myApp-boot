@@ -1,10 +1,8 @@
 package org.vicykie.myapp.config.auth.handler;
 
-import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -13,7 +11,6 @@ import org.vicykie.myapp.config.auth.TokenAuthenticationService;
 import org.vicykie.myapp.config.auth.UserAuthentication;
 import org.vicykie.myapp.entities.authority.UserInfo;
 import org.vicykie.myapp.util.HttpUtils;
-import org.vicykie.myapp.util.RequestUtil;
 import org.vicykie.myapp.vo.ResponseVO;
 
 import javax.servlet.ServletException;
@@ -60,7 +57,8 @@ public class StatelessLoginSuccessHandler implements AuthenticationSuccessHandle
             response.sendRedirect(request.getContextPath() + loginSuccessUrl);
         } else {
             ObjectMapper mapper = new ObjectMapper();
-            response.setHeader("Content-Type", "html/json;charset=UTF-8");
+
+            response.setHeader("Content-Type", "application/json;charset=UTF-8");
             String str = mapper.writeValueAsString(ResponseVO.loginSuccess(loginSuccessUrl));
             PrintWriter writer = response.getWriter();
             writer.write(str);

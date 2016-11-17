@@ -29,7 +29,8 @@ public class StatelessLoginFailureHandler implements AuthenticationFailureHandle
         logger.error(e.getMessage());
         SecurityContextHolder.clearContext();
         logger.info("clear security context");
-        if (HttpUtils.isFormRequest(contentType)) {
+
+        if (!HttpUtils.isAjax(request)) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getLocalizedMessage());
         } else {
             ObjectMapper mapper = new ObjectMapper();

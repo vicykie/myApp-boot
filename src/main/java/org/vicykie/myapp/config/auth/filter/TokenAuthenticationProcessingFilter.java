@@ -1,31 +1,20 @@
 package org.vicykie.myapp.config.auth.filter;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.util.StreamUtils;
-import org.vicykie.myapp.config.auth.TokenAuthenticationService;
-import org.vicykie.myapp.config.auth.UserAuthentication;
-import org.vicykie.myapp.entities.authority.UserInfo;
 import org.vicykie.myapp.util.HttpUtils;
-import org.vicykie.myapp.vo.ResponseVO;
 
-import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.charset.Charset;
 
 /**

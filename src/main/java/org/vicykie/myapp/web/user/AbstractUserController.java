@@ -1,4 +1,4 @@
-package org.vicykie.myapp.web;
+package org.vicykie.myapp.web.user;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

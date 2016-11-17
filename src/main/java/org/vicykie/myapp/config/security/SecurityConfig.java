@@ -77,6 +77,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/static/**").permitAll()
                 .antMatchers("/js/**").permitAll()
+                .antMatchers("/api/**").permitAll()
+                .antMatchers("/manage/**").permitAll()
                 .antMatchers("/images/**").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/role/**").permitAll()
@@ -93,7 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setAuthenticationSuccessHandler(loginSuccessHandler);
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         // custom Token based authentication based on the header previously given to the client
-        //请求拦截，验证每个header
+        //请求拦截，验证每个请求的header
         http.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService, userAuthChecker),
                 UsernamePasswordAuthenticationFilter.class);
         http.logout().clearAuthentication(true).logoutSuccessUrl("/?logout").deleteCookies("X-AUTH-TOKEN").logoutUrl("/auth/logout").permitAll();

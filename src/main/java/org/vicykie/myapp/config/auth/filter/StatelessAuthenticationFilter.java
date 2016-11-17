@@ -1,6 +1,7 @@
 package org.vicykie.myapp.config.auth.filter;
 
 
+import lombok.extern.log4j.Log4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.filter.GenericFilterBean;
@@ -19,6 +20,7 @@ import java.util.List;
 /**
  * Created by vicykie on 2016/6/14.
  */
+@Log4j
 public class StatelessAuthenticationFilter extends GenericFilterBean {
     private String[] excludeUriList = {"/", "/auth/login", "/static/401.html", "/static/404.html",
             "/static/500.html"};
@@ -36,7 +38,6 @@ public class StatelessAuthenticationFilter extends GenericFilterBean {
         HttpServletRequest re = (HttpServletRequest) request;
         String uri = re.getRequestURI();
         String staticPath = "/static";
-        System.out.println(uri);
         if (!excludes.contains(uri) && !uri.startsWith(staticPath) && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserAuthentication authentication = tokenAuthenticationService.getAuthentication((HttpServletRequest) request);
             if (authentication!=null)

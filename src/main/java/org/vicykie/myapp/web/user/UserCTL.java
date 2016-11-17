@@ -1,4 +1,4 @@
-package org.vicykie.myapp.web;
+package org.vicykie.myapp.web.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.vicykie.myapp.dao.UserDAO;
 import org.vicykie.myapp.entities.authority.RoleInfo;
 import org.vicykie.myapp.entities.authority.UserInfo;
+import org.vicykie.myapp.service.async.AsyncService;
 import org.vicykie.myapp.util.PasswordUtils;
 import org.vicykie.myapp.vo.ResponseVO;
 
@@ -29,6 +30,8 @@ public class UserCTL extends AbstractUserController {
     @Qualifier("mongoUserDAO")      //根据名称
     private UserDAO userDAO;
 
+    @Autowired
+    private AsyncService asyncService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String addUser(@PathVariable("id") String id, Model model) {
@@ -48,7 +51,7 @@ public class UserCTL extends AbstractUserController {
     }
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO<?> test() {
+    public ResponseVO<?> test(UserInfo userInfo) {
 
         return ResponseVO.updateSuccess("更新成功");
     }
@@ -61,7 +64,6 @@ public class UserCTL extends AbstractUserController {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String toAddUserPage(Model model) {
-        System.out.println(1/0);
         return "user/add";
     }
 
@@ -94,4 +96,11 @@ public class UserCTL extends AbstractUserController {
         return users;
     }
 
+    @RequestMapping(value = "/async")
+    @ResponseBody
+    public void asyncTest(){
+        asyncService.task1();
+        asyncService.task2();
+        asyncService.task3();
+    }
 }
